@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- hotspot waves rising from the pocket -->
+    <path
+        android:pathData="M48.7,45.7 A7.5,7.5 0 0 1 59.3,45.7 M43.4,40.4 A15,15 0 0 1 64.6,40.4 M38.1,35.1 A22.5,22.5 0 0 1 69.9,35.1"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="5"
+        android:strokeLineCap="round" />
+    <!-- pocket -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M34,55 H74 V66 C74,74.5 65,81 54,83 C43,81 34,74.5 34,66 Z" />
+    <!-- stitch line -->
+    <path
+        android:pathData="M38,60 H70"
+        android:strokeColor="#FF00796B"
+        android:strokeWidth="2"
+        android:strokeLineCap="round" />
+</vector>
