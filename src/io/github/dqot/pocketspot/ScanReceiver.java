@@ -31,6 +31,7 @@ public final class ScanReceiver extends BroadcastReceiver {
             PendingResult pending = goAsync();
             new Thread(() -> {
                 String reply = Helper.tether(context, on);
+                Log.i(TAG, "tether " + (on ? "on" : "off") + " -> " + reply);
                 Status.log(context, "태블릿 신호 (" + (on ? "켜기" : "끄기") + "): " + reply);
                 pending.finish();
             }).start();

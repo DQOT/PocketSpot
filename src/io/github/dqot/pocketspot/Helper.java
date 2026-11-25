@@ -118,6 +118,8 @@ final class Helper {
                 + "P=$(pm path " + c.getPackageName() + " | head -1 | cut -d: -f2)\n"
                 + "[ -n \"$P\" ] || { echo 'PocketSpot is not installed'; exit 1; }\n"
                 + "pkill -f pocketspotd 2>/dev/null\n"
+                + "# Keep the app's 127.0.0.1 link to the helper open in Doze\n"
+                + "cmd deviceidle whitelist +" + c.getPackageName() + " >/dev/null 2>&1\n"
                 + "sleep 1\n"
                 + "setsid nohup app_process -Djava.class.path=\"$P\" /system/bin --nice-name=pocketspotd "
                 + Daemon.class.getName() + " >/dev/null 2>&1 </dev/null &\n"

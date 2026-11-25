@@ -110,6 +110,7 @@ public final class MainActivity extends Activity {
         phoneCard = card(root, "폰");
         phoneStatus = text("", 14);
         phoneCard.addView(phoneStatus);
+        phoneCard.addView(button("배터리 최적화에서 제외", v -> requestUnrestricted()));
         LinearLayout testRow = row(phoneCard);
         testRow.addView(button("핫스팟 켜기 (테스트)", v -> direct(true)));
         testRow.addView(button("끄기 (테스트)", v -> direct(false)));
@@ -203,10 +204,32 @@ public final class MainActivity extends Activity {
                 saveCode(code.getText().toString());
             }
             Status.setScan(this, Scanner.register(this));
+            if (!unrestricted()) requestUnrestricted();
         } else {
             Scanner.stop(this);
         }
         update();
+    }
+
+    /**
+     * In Doze the phone cuts network access for apps that are not exempt, and that includes the
+     * 127.0.0.1 link to the ADB helper: the call arrives but never reaches the helper.
+     */
+    private boolean unrestricted() {
+        return getSystemService(android.os.PowerManager.class).isIgnoringBatteryOptimizations(getPackageName());
+    }
+
+    private void requestUnrestricted() {
+        if (unrestricted()) {
+            Toast.makeText(this, "이미 제외되어 있어요", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            startActivity(new android.content.Intent(android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
+                    android.net.Uri.parse("package:" + getPackageName())));
+        } catch (Exception e) {
+            startActivity(new android.content.Intent(android.provider.Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS));
+        }
     }
 
     private void saveCode(String value) {
@@ -228,7 +251,10 @@ public final class MainActivity extends Activity {
                 : "태블릿에서는 \"폰 핫스팟 우선 연결\"을 쓸 때만 필요합니다.");
         log.setText(Status.log(this));
         helperStatus.setText("확인 중...");
-        if (phone) phoneStatus.setText("블루투스 감시: " + Status.scan(this));
+        if (phone) {
+            phoneStatus.setText("블루투스 감시: " + Status.scan(this) + "\n배터리 최적화: "
+                    + (unrestricted() ? "제외됨" : "적용 중. 화면이 꺼져 있으면 핫스팟을 못 켤 수 있어요. 아래 버튼으로 제외해 주세요"));
+        }
         new Thread(() -> {
             String adb = "pong".equals(Helper.adb("ping")) ? "실행 중" : "꺼져 있음";
             String shizuku = Helper.shizukuState();
