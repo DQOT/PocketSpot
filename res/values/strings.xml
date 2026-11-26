@@ -1,5 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">PocketSpot</string>
-    <string name="tile_label">폰 핫스팟</string>
+    <string name="app_name" translatable="false">PocketSpot</string>
+    <string name="tile_label">Phone hotspot</string>
+
+    <!-- Quick settings tile subtitles -->
+    <string name="tile_needs_attention">Check the app</string>
+    <string name="tile_turning_off">Turning off</string>
+    <string name="tile_connected">Connected · Tap to turn off</string>
+    <string name="tile_connecting">Connecting</string>
+    <string name="tile_calling">Calling</string>
+    <string name="tile_tap_to_turn_on">Tap to turn on</string>
+
+    <!-- Where a call came from and what it asked, shown in the log -->
+    <string name="via_tile">tile</string>
+    <string name="via_app">app</string>
+    <string name="action_on">on</string>
+    <string name="action_off">off</string>
+
+    <!-- Sending (tablet) -->
+    <string name="error_no_pairing_code">Enter a pairing code first</string>
+    <string name="error_bluetooth_off">Bluetooth is off</string>
+    <string name="error_cannot_advertise">This device can\'t send Bluetooth signals</string>
+    <string name="error_bluetooth_permission">No Bluetooth permission. Open the app to allow it</string>
+    <string name="log_advertise_failed">Couldn\'t send signal: %1$d</string>
+    <string name="log_on_sent">On signal sent (%1$s)</string>
+    <string name="log_off_sent">Off signal sent</string>
+    <string name="log_off_sent_via">Off signal sent (%1$s)</string>
+    <string name="log_prefer_hotspot">Joining phone hotspot: %1$s</string>
+
+    <!-- Receiving (phone) -->
+    <string name="log_tablet_signal">Tablet signal (%1$s): %2$s</string>
+    <string name="log_direct">Direct %1$s: %2$s</string>
+    <string name="scan_bluetooth_off">Bluetooth off</string>
+    <string name="scan_no_scanner">No scanner</string>
+    <string name="scan_listening">Listening</string>
+    <string name="scan_register_failed">Registration failed: %1$d</string>
+    <string name="scan_no_permission">No Bluetooth permission</string>
+    <string name="scan_not_registered">Not registered</string>
+
+    <!-- Permission helper -->
+    <string name="helper_none">No permission helper</string>
+    <string name="helper_no_pairing_code">No pairing code</string>
+    <string name="helper_no_reply">no reply</string>
+    <string name="helper_shizuku_connect_failed">Couldn\'t connect to Shizuku</string>
+    <string name="helper_shizuku_error">Shizuku error %1$s</string>
+    <string name="shizuku_not_running">Not running</string>
+    <string name="shizuku_too_old">Version too old</string>
+    <string name="shizuku_granted">Permission granted</string>
+    <string name="shizuku_needs_permission">Permission needed</string>
+
+    <!-- Main screen -->
+    <string name="intro">Call from your tablet and the phone in your pocket turns on its hotspot. Install this app on both devices and enter the same pairing code.</string>
+    <string name="role_title">Role of this device</string>
+    <string name="role_tablet">Caller (tablet)</string>
+    <string name="role_phone">Hotspot provider (phone)</string>
+    <string name="pairing_title">Pairing code</string>
+    <string name="pairing_help">Both devices need the same code to recognize each other. Type the code made on the phone into the tablet, or enter a code of your own (8 or more letters and digits) on both. The saved code stays until you change it.</string>
+    <string name="save">Save</string>
+    <string name="new_code">New code</string>
+    <string name="helper_title">Permission helper (ADB or Shizuku)</string>
+    <string name="adb_help">ADB: connect to a PC and run the command below. Run it again after every reboot.</string>
+    <string name="copy_command">Copy command</string>
+    <string name="copied">Copied</string>
+    <string name="request_shizuku">Request Shizuku permission</string>
+    <string name="recheck">Check again</string>
+    <string name="phone_title">Phone</string>
+    <string name="battery_exempt_button">Exclude from battery optimization</string>
+    <string name="test_on">Turn on hotspot (test)</string>
+    <string name="test_off">Turn off (test)</string>
+    <string name="tablet_title">Tablet</string>
+    <string name="tile_hint">Add the \"Phone hotspot\" tile in Quick Settings edit mode to call with one tap.</string>
+    <string name="hotspot_on">Turn on hotspot</string>
+    <string name="hotspot_off">Turn off</string>
+    <string name="prefer_title">Prefer phone hotspot</string>
+    <string name="prefer_help">After the on signal, this tablet moves to the phone\'s hotspot even if it is on another Wi-Fi network. This device needs the permission helper too. Without it, the tablet joins known Wi-Fi networks automatically as usual.</string>
+    <string name="prefer_switch">Enable</string>
+    <string name="ssid_hint">Phone hotspot name</string>
+    <string name="password_hint">Hotspot password</string>
+    <string name="saved_instantly">Changes are saved as you type.</string>
+    <string name="log_title">Log</string>
+    <string name="already_exempt">Already excluded</string>
+    <string name="code_too_short">Use at least %1$d letters and digits</string>
+    <string name="code_saved">Saved. Enter the same code on the other device</string>
+    <string name="helper_note_phone">Required on the phone to turn on the hotspot. Regular apps can\'t turn on the hotspot, so PocketSpot borrows ADB permissions.</string>
+    <string name="helper_note_tablet">On the tablet, needed only for \"Prefer phone hotspot\".</string>
+    <string name="checking">Checking...</string>
+    <string name="phone_status">Bluetooth listener: %1$s\nBattery optimization: %2$s</string>
+    <string name="battery_exempt">Excluded</string>
+    <string name="battery_restricted">On. The hotspot may not turn on while the screen is off. Use the button below to exclude this app</string>
+    <string name="adb_running">Running</string>
+    <string name="adb_stopped">Not running</string>
+    <string name="helper_status">ADB helper: %1$s\nShizuku: %2$s</string>
+    <string name="shizuku_not_running_toast">Shizuku isn\'t running</string>
+    <string name="already_granted">Already granted</string>
+    <string name="shizuku_error_toast">Shizuku error: %1$s</string>
 </resources>

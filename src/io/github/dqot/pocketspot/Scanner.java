@@ -28,9 +28,9 @@ final class Scanner {
         schedule(context);
         BluetoothManager bm = context.getSystemService(BluetoothManager.class);
         BluetoothAdapter adapter = bm == null ? null : bm.getAdapter();
-        if (adapter == null || !adapter.isEnabled()) return "블루투스 꺼짐";
+        if (adapter == null || !adapter.isEnabled()) return context.getString(R.string.scan_bluetooth_off);
         BluetoothLeScanner scanner = adapter.getBluetoothLeScanner();
-        if (scanner == null) return "스캐너 없음";
+        if (scanner == null) return context.getString(R.string.scan_no_scanner);
         ScanFilter filter = new ScanFilter.Builder()
                 .setManufacturerData(Beacon.COMPANY_ID, Beacon.MAGIC, new byte[]{(byte) 0xFF, (byte) 0xFF})
                 .build();
@@ -42,9 +42,10 @@ final class Scanner {
             PendingIntent pi = pendingIntent(context);
             scanner.stopScan(pi);   // replace, not stack up
             int code = scanner.startScan(Collections.singletonList(filter), settings, pi);
-            return code == 0 ? "감시 중" : "등록 실패 " + code;
+            return code == 0 ? context.getString(R.string.scan_listening)
+                    : context.getString(R.string.scan_register_failed, code);
         } catch (SecurityException e) {
-            return "블루투스 권한 없음";
+            return context.getString(R.string.scan_no_permission);
         }
     }
 

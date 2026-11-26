@@ -23,12 +23,12 @@ final class Advertiser {
     /** Returns null on success, or why it could not send. */
     static synchronized String send(Context context, int command) {
         byte[] key = Pairing.key(context);
-        if (key == null) return "페어링 코드를 먼저 입력해 주세요";
+        if (key == null) return context.getString(R.string.error_no_pairing_code);
         BluetoothManager bm = context.getSystemService(BluetoothManager.class);
         BluetoothAdapter adapter = bm == null ? null : bm.getAdapter();
-        if (adapter == null || !adapter.isEnabled()) return "블루투스가 꺼져 있어요";
+        if (adapter == null || !adapter.isEnabled()) return context.getString(R.string.error_bluetooth_off);
         BluetoothLeAdvertiser advertiser = adapter.getBluetoothLeAdvertiser();
-        if (advertiser == null) return "이 기기는 블루투스 신호를 보낼 수 없어요";
+        if (advertiser == null) return context.getString(R.string.error_cannot_advertise);
         try {
             if (current != null) advertiser.stopAdvertisingSet(current);
             AdvertisingSetParameters params = new AdvertisingSetParameters.Builder()
@@ -45,13 +45,13 @@ final class Advertiser {
             current = new AdvertisingSetCallback() {
                 @Override
                 public void onAdvertisingSetStarted(AdvertisingSet set, int txPower, int status) {
-                    if (status != ADVERTISE_SUCCESS) Status.log(app, "신호 보내기 실패 " + status);
+                    if (status != ADVERTISE_SUCCESS) Status.log(app, app.getString(R.string.log_advertise_failed, status));
                 }
             };
             advertiser.startAdvertisingSet(params, data, null, null, null, DURATION_MS / 10, 0, current);
             return null;
         } catch (SecurityException e) {
-            return "블루투스 권한이 없어요. 앱을 열어 허용해 주세요";
+            return context.getString(R.string.error_bluetooth_permission);
         }
     }
 
@@ -65,11 +65,11 @@ final class Advertiser {
             Status.log(context, error);
             return error;
         }
-        Status.log(context, "켜기 신호 보냄 (" + via + ")");
+        Status.log(context, context.getString(R.string.log_on_sent, via));
         if (Status.preferHotspot(context) && !Status.hotspotSsid(context).isEmpty()) {
             Context app = context.getApplicationContext();
-            new Thread(() -> Status.log(app, "핫스팟 우선 연결: "
-                    + Helper.connect(app, Status.hotspotSsid(app), Status.hotspotPassword(app)))).start();
+            new Thread(() -> Status.log(app, app.getString(R.string.log_prefer_hotspot,
+                    Helper.connect(app, Status.hotspotSsid(app), Status.hotspotPassword(app))))).start();
         }
         return null;
     }

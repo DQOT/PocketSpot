@@ -37,7 +37,7 @@ public final class HotspotTile extends TileService {
         String error;
         if (onHotspot) {
             error = Advertiser.send(this, Beacon.CMD_OFF);
-            Status.log(this, error != null ? error : "끄기 신호 보냄 (타일)");
+            Status.log(this, error != null ? error : getString(R.string.log_off_sent_via, getString(R.string.via_tile)));
             if (error == null) {
                 onHotspot = false;
                 sendingUntil = 0;
@@ -46,7 +46,7 @@ public final class HotspotTile extends TileService {
                 new Thread(() -> Helper.cancelConnect(getApplicationContext())).start();
             }
         } else {
-            error = Advertiser.callPhone(this, "타일");
+            error = Advertiser.callPhone(this, getString(R.string.via_tile));
             if (error == null) {
                 // Joining can take longer than the 10 s call: stay on until joined, so the
                 // tile does not blink off in between.
@@ -98,10 +98,11 @@ public final class HotspotTile extends TileService {
         boolean sending = now < sendingUntil;
         boolean leaving = now < leavingUntil;
         tile.setState(onHotspot || sending ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
-        tile.setSubtitle(error != null ? "확인 필요"
-                : leaving ? "끄는 중"
-                : onHotspot ? "연결됨 · 눌러서 끄기"
-                : sending ? (connecting ? "연결 중" : "부르는 중") : "눌러서 켜기");
+        tile.setSubtitle(getString(error != null ? R.string.tile_needs_attention
+                : leaving ? R.string.tile_turning_off
+                : onHotspot ? R.string.tile_connected
+                : sending ? (connecting ? R.string.tile_connecting : R.string.tile_calling)
+                : R.string.tile_tap_to_turn_on));
         tile.updateTile();
     }
 }

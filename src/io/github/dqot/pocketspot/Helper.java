@@ -58,15 +58,15 @@ final class Helper {
 
     private static String call(Context c, String body, int tx, int arg, String s1, String s2) {
         Kind kind = find(c);
-        if (kind == null) return "권한 도우미 없음";
+        if (kind == null) return c.getString(R.string.helper_none);
         if (kind == Kind.ADB) {
             byte[] key = Pairing.key(c);
-            if (key == null) return "페어링 코드 없음";
+            if (key == null) return c.getString(R.string.helper_no_pairing_code);
             String reply = adb(Signed.request(body, key));
-            return "ADB: " + (reply == null ? "응답 없음" : reply);
+            return "ADB: " + (reply == null ? c.getString(R.string.helper_no_reply) : reply);
         }
         IBinder b = shizukuBinder(c);
-        if (b == null) return "Shizuku 연결 실패";
+        if (b == null) return c.getString(R.string.helper_shizuku_connect_failed);
         Parcel data = Parcel.obtain();
         Parcel reply = Parcel.obtain();
         try {
@@ -80,7 +80,7 @@ final class Helper {
             return "Shizuku: " + reply.readString();
         } catch (Exception e) {
             shizukuService = null;
-            return "Shizuku 오류 " + e.getMessage();
+            return c.getString(R.string.helper_shizuku_error, e.getMessage());
         } finally {
             data.recycle();
             reply.recycle();
@@ -135,10 +135,11 @@ final class Helper {
     // Shizuku
 
     /** Shizuku state for the screen. */
-    static String shizukuState() {
-        if (!waitForShizuku(1_000)) return "실행 안 됨";
-        if (Shizuku.isPreV11()) return "버전이 너무 낮음";
-        return Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED ? "권한 있음" : "권한 필요";
+    static String shizukuState(Context c) {
+        if (!waitForShizuku(1_000)) return c.getString(R.string.shizuku_not_running);
+        if (Shizuku.isPreV11()) return c.getString(R.string.shizuku_too_old);
+        return c.getString(Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED
+                ? R.string.shizuku_granted : R.string.shizuku_needs_permission);
     }
 
     private static boolean waitForShizuku(long timeoutMs) {

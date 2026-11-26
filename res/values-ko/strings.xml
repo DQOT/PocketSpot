@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tile_label">폰 핫스팟</string>
+
+    <string name="tile_needs_attention">확인 필요</string>
+    <string name="tile_turning_off">끄는 중</string>
+    <string name="tile_connected">연결됨 · 눌러서 끄기</string>
+    <string name="tile_connecting">연결 중</string>
+    <string name="tile_calling">부르는 중</string>
+    <string name="tile_tap_to_turn_on">눌러서 켜기</string>
+
+    <string name="via_tile">타일</string>
+    <string name="via_app">앱</string>
+    <string name="action_on">켜기</string>
+    <string name="action_off">끄기</string>
+
+    <string name="error_no_pairing_code">페어링 코드를 먼저 입력해 주세요</string>
+    <string name="error_bluetooth_off">블루투스가 꺼져 있어요</string>
+    <string name="error_cannot_advertise">이 기기는 블루투스 신호를 보낼 수 없어요</string>
+    <string name="error_bluetooth_permission">블루투스 권한이 없어요. 앱을 열어 허용해 주세요</string>
+    <string name="log_advertise_failed">신호 보내기 실패 %1$d</string>
+    <string name="log_on_sent">켜기 신호 보냄 (%1$s)</string>
+    <string name="log_off_sent">끄기 신호 보냄</string>
+    <string name="log_off_sent_via">끄기 신호 보냄 (%1$s)</string>
+    <string name="log_prefer_hotspot">핫스팟 우선 연결: %1$s</string>
+
+    <string name="log_tablet_signal">태블릿 신호 (%1$s): %2$s</string>
+    <string name="log_direct">직접 %1$s: %2$s</string>
+    <string name="scan_bluetooth_off">블루투스 꺼짐</string>
+    <string name="scan_no_scanner">스캐너 없음</string>
+    <string name="scan_listening">감시 중</string>
+    <string name="scan_register_failed">등록 실패 %1$d</string>
+    <string name="scan_no_permission">블루투스 권한 없음</string>
+    <string name="scan_not_registered">등록 안 됨</string>
+
+    <string name="helper_none">권한 도우미 없음</string>
+    <string name="helper_no_pairing_code">페어링 코드 없음</string>
+    <string name="helper_no_reply">응답 없음</string>
+    <string name="helper_shizuku_connect_failed">Shizuku 연결 실패</string>
+    <string name="helper_shizuku_error">Shizuku 오류 %1$s</string>
+    <string name="shizuku_not_running">실행 안 됨</string>
+    <string name="shizuku_too_old">버전이 너무 낮음</string>
+    <string name="shizuku_granted">권한 있음</string>
+    <string name="shizuku_needs_permission">권한 필요</string>
+
+    <string name="intro">태블릿에서 부르면 주머니 속 폰이 핫스팟을 켭니다. 두 기기에 이 앱을 설치하고 같은 페어링 코드를 넣으세요.</string>
+    <string name="role_title">이 기기의 역할</string>
+    <string name="role_tablet">부르는 쪽 (태블릿)</string>
+    <string name="role_phone">핫스팟을 켜는 쪽 (폰)</string>
+    <string name="pairing_title">페어링 코드</string>
+    <string name="pairing_help">두 기기에 같은 코드를 넣어야 서로 알아봅니다. 폰에서 만든 코드를 태블릿에 그대로 입력하거나, 원하는 코드(영문과 숫자 8자 이상)를 두 기기에 똑같이 넣으세요. 저장한 코드는 바꾸기 전까지 유지됩니다.</string>
+    <string name="save">저장</string>
+    <string name="new_code">새 코드 만들기</string>
+    <string name="helper_title">권한 도우미 (ADB 또는 Shizuku)</string>
+    <string name="adb_help">ADB 방식: PC에 연결해 아래 명령을 실행합니다. 재부팅하면 다시 실행해야 합니다.</string>
+    <string name="copy_command">명령 복사</string>
+    <string name="copied">복사했어요</string>
+    <string name="request_shizuku">Shizuku 권한 요청</string>
+    <string name="recheck">상태 다시 확인</string>
+    <string name="phone_title">폰</string>
+    <string name="battery_exempt_button">배터리 최적화에서 제외</string>
+    <string name="test_on">핫스팟 켜기 (테스트)</string>
+    <string name="test_off">끄기 (테스트)</string>
+    <string name="tablet_title">태블릿</string>
+    <string name="tile_hint">빠른 설정 편집에서 \"폰 핫스팟\" 타일을 추가하면 한 번에 부를 수 있어요.</string>
+    <string name="hotspot_on">핫스팟 켜기</string>
+    <string name="hotspot_off">끄기</string>
+    <string name="prefer_title">폰 핫스팟 우선 연결</string>
+    <string name="prefer_help">켜기 신호를 보낸 뒤 다른 와이파이에 붙어 있어도 폰 핫스팟으로 옮겨 붙습니다. 이 기기에도 권한 도우미가 필요합니다. 없으면 평소처럼 아는 와이파이 중에서 자동으로 붙습니다.</string>
+    <string name="prefer_switch">사용</string>
+    <string name="ssid_hint">폰 핫스팟 이름</string>
+    <string name="password_hint">핫스팟 비밀번호</string>
+    <string name="saved_instantly">입력하는 즉시 저장됩니다.</string>
+    <string name="log_title">기록</string>
+    <string name="already_exempt">이미 제외되어 있어요</string>
+    <string name="code_too_short">영문과 숫자로 %1$d자 이상 넣어 주세요</string>
+    <string name="code_saved">저장했어요. 다른 기기에도 같은 코드를 넣어 주세요</string>
+    <string name="helper_note_phone">폰에서는 핫스팟을 켜기 위해 꼭 필요합니다. 일반 앱은 핫스팟을 켤 수 없어서, ADB 권한을 빌려 씁니다.</string>
+    <string name="helper_note_tablet">태블릿에서는 \"폰 핫스팟 우선 연결\"을 쓸 때만 필요합니다.</string>
+    <string name="checking">확인 중...</string>
+    <string name="phone_status">블루투스 감시: %1$s\n배터리 최적화: %2$s</string>
+    <string name="battery_exempt">제외됨</string>
+    <string name="battery_restricted">적용 중. 화면이 꺼져 있으면 핫스팟을 못 켤 수 있어요. 아래 버튼으로 제외해 주세요</string>
+    <string name="adb_running">실행 중</string>
+    <string name="adb_stopped">꺼져 있음</string>
+    <string name="helper_status">ADB 도우미: %1$s\nShizuku: %2$s</string>
+    <string name="shizuku_not_running_toast">Shizuku가 실행 중이 아니에요</string>
+    <string name="already_granted">이미 권한이 있어요</string>
+    <string name="shizuku_error_toast">Shizuku 오류: %1$s</string>
+</resources>

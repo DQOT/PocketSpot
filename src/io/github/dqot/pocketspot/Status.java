@@ -24,7 +24,7 @@ final class Status {
     }
 
     static String scan(Context c) {
-        return prefs(c).getString("scan", "등록 안 됨");
+        return prefs(c).getString("scan", c.getString(R.string.scan_not_registered));
     }
 
     static void setScan(Context c, String s) {

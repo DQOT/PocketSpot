@@ -32,7 +32,8 @@ public final class ScanReceiver extends BroadcastReceiver {
             new Thread(() -> {
                 String reply = Helper.tether(context, on);
                 Log.i(TAG, "tether " + (on ? "on" : "off") + " -> " + reply);
-                Status.log(context, "태블릿 신호 (" + (on ? "켜기" : "끄기") + "): " + reply);
+                Status.log(context, context.getString(R.string.log_tablet_signal,
+                        context.getString(on ? R.string.action_on : R.string.action_off), reply));
                 pending.finish();
             }).start();
             return;   // one command per delivery

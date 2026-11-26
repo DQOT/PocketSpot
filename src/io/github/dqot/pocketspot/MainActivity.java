@@ -52,16 +52,16 @@ public final class MainActivity extends Activity {
         TextView title = text("PocketSpot", 26);
         title.setTypeface(Typeface.DEFAULT_BOLD);
         root.addView(title);
-        root.addView(text("태블릿에서 부르면 주머니 속 폰이 핫스팟을 켭니다. 두 기기에 이 앱을 설치하고 같은 페어링 코드를 넣으세요.", 14));
+        root.addView(text(getString(R.string.intro), 14));
 
         // Role
-        LinearLayout roleCard = card(root, "이 기기의 역할");
+        LinearLayout roleCard = card(root, getString(R.string.role_title));
         RadioGroup role = new RadioGroup(this);
         RadioButton tablet = new RadioButton(this);
-        tablet.setText("부르는 쪽 (태블릿)");
+        tablet.setText(R.string.role_tablet);
         tablet.setId(View.generateViewId());
         RadioButton phone = new RadioButton(this);
-        phone.setText("핫스팟을 켜는 쪽 (폰)");
+        phone.setText(R.string.role_phone);
         phone.setId(View.generateViewId());
         role.addView(tablet);
         role.addView(phone);
@@ -70,8 +70,8 @@ public final class MainActivity extends Activity {
         roleCard.addView(role);
 
         // Pairing
-        LinearLayout pairCard = card(root, "페어링 코드");
-        pairCard.addView(text("두 기기에 같은 코드를 넣어야 서로 알아봅니다. 폰에서 만든 코드를 태블릿에 그대로 입력하거나, 원하는 코드(영문과 숫자 8자 이상)를 두 기기에 똑같이 넣으세요. 저장한 코드는 바꾸기 전까지 유지됩니다.", 13));
+        LinearLayout pairCard = card(root, getString(R.string.pairing_title));
+        pairCard.addView(text(getString(R.string.pairing_help), 13));
         code = new EditText(this);
         code.setSingleLine(true);
         code.setTypeface(Typeface.MONOSPACE);
@@ -80,15 +80,15 @@ public final class MainActivity extends Activity {
         code.setText(Pairing.code(this));
         pairCard.addView(code);
         LinearLayout codeRow = row(pairCard);
-        codeRow.addView(button("저장", v -> saveCode(code.getText().toString())));
-        newCode = button("새 코드 만들기", v -> {
+        codeRow.addView(button(getString(R.string.save), v -> saveCode(code.getText().toString())));
+        newCode = button(getString(R.string.new_code), v -> {
             code.setText(Pairing.generate());
             saveCode(code.getText().toString());
         });
         codeRow.addView(newCode);
 
         // Helper
-        LinearLayout helperCard = card(root, "권한 도우미 (ADB 또는 Shizuku)");
+        LinearLayout helperCard = card(root, getString(R.string.helper_title));
         helperNote = text("", 13);
         helperCard.addView(helperNote);
         helperStatus = text("", 14);
@@ -96,54 +96,54 @@ public final class MainActivity extends Activity {
         TextView command = text(Helper.adbCommand(this), 12);
         command.setTypeface(Typeface.MONOSPACE);
         command.setTextIsSelectable(true);
-        helperCard.addView(text("ADB 방식: PC에 연결해 아래 명령을 실행합니다. 재부팅하면 다시 실행해야 합니다.", 13));
+        helperCard.addView(text(getString(R.string.adb_help), 13));
         helperCard.addView(command);
         LinearLayout helperRow = row(helperCard);
-        helperRow.addView(button("명령 복사", v -> {
+        helperRow.addView(button(getString(R.string.copy_command), v -> {
             getSystemService(ClipboardManager.class).setPrimaryClip(ClipData.newPlainText("PocketSpot", Helper.adbCommand(this)));
-            Toast.makeText(this, "복사했어요", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.copied, Toast.LENGTH_SHORT).show();
         }));
-        helperRow.addView(button("Shizuku 권한 요청", v -> requestShizuku()));
-        helperCard.addView(button("상태 다시 확인", v -> update()));
+        helperRow.addView(button(getString(R.string.request_shizuku), v -> requestShizuku()));
+        helperCard.addView(button(getString(R.string.recheck), v -> update()));
 
         // Phone
-        phoneCard = card(root, "폰");
+        phoneCard = card(root, getString(R.string.phone_title));
         phoneStatus = text("", 14);
         phoneCard.addView(phoneStatus);
-        phoneCard.addView(button("배터리 최적화에서 제외", v -> requestUnrestricted()));
+        phoneCard.addView(button(getString(R.string.battery_exempt_button), v -> requestUnrestricted()));
         LinearLayout testRow = row(phoneCard);
-        testRow.addView(button("핫스팟 켜기 (테스트)", v -> direct(true)));
-        testRow.addView(button("끄기 (테스트)", v -> direct(false)));
+        testRow.addView(button(getString(R.string.test_on), v -> direct(true)));
+        testRow.addView(button(getString(R.string.test_off), v -> direct(false)));
 
         // Tablet
-        tabletCard = card(root, "태블릿");
-        tabletCard.addView(text("빠른 설정 편집에서 \"폰 핫스팟\" 타일을 추가하면 한 번에 부를 수 있어요.", 13));
+        tabletCard = card(root, getString(R.string.tablet_title));
+        tabletCard.addView(text(getString(R.string.tile_hint), 13));
         LinearLayout sendRow = row(tabletCard);
-        sendRow.addView(button("핫스팟 켜기", v -> {
-            Advertiser.callPhone(this, "앱");
+        sendRow.addView(button(getString(R.string.hotspot_on), v -> {
+            Advertiser.callPhone(this, getString(R.string.via_app));
             update();
         }));
-        sendRow.addView(button("끄기", v -> {
+        sendRow.addView(button(getString(R.string.hotspot_off), v -> {
             String error = Advertiser.send(this, Beacon.CMD_OFF);
-            Status.log(this, error != null ? error : "끄기 신호 보냄");
+            Status.log(this, error != null ? error : getString(R.string.log_off_sent));
             update();
         }));
-        TextView preferTitle = text("폰 핫스팟 우선 연결", 16);
+        TextView preferTitle = text(getString(R.string.prefer_title), 16);
         preferTitle.setTypeface(Typeface.DEFAULT_BOLD);
         preferTitle.setPadding(0, dp(16), 0, 0);
         tabletCard.addView(preferTitle);
-        tabletCard.addView(text("켜기 신호를 보낸 뒤 다른 와이파이에 붙어 있어도 폰 핫스팟으로 옮겨 붙습니다. 이 기기에도 권한 도우미가 필요합니다. 없으면 평소처럼 아는 와이파이 중에서 자동으로 붙습니다.", 13));
+        tabletCard.addView(text(getString(R.string.prefer_help), 13));
         Switch prefer = new Switch(this);
-        prefer.setText("사용");
+        prefer.setText(R.string.prefer_switch);
         prefer.setChecked(Status.preferHotspot(this));
         tabletCard.addView(prefer);
         EditText ssid = new EditText(this);
-        ssid.setHint("폰 핫스팟 이름");
+        ssid.setHint(R.string.ssid_hint);
         ssid.setSingleLine(true);
         ssid.setText(Status.hotspotSsid(this));
         tabletCard.addView(ssid);
         EditText password = new EditText(this);
-        password.setHint("핫스팟 비밀번호");
+        password.setHint(R.string.password_hint);
         password.setSingleLine(true);
         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         password.setText(Status.hotspotPassword(this));
@@ -168,10 +168,10 @@ public final class MainActivity extends Activity {
         };
         ssid.addTextChangedListener(watcher);
         password.addTextChangedListener(watcher);
-        tabletCard.addView(text("입력하는 즉시 저장됩니다.", 12));
+        tabletCard.addView(text(getString(R.string.saved_instantly), 12));
 
         // Log
-        LinearLayout logCard = card(root, "기록");
+        LinearLayout logCard = card(root, getString(R.string.log_title));
         log = text("", 12);
         log.setTypeface(Typeface.MONOSPACE);
         logCard.addView(log);
@@ -221,7 +221,7 @@ public final class MainActivity extends Activity {
 
     private void requestUnrestricted() {
         if (unrestricted()) {
-            Toast.makeText(this, "이미 제외되어 있어요", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.already_exempt, Toast.LENGTH_SHORT).show();
             return;
         }
         try {
@@ -234,11 +234,11 @@ public final class MainActivity extends Activity {
 
     private void saveCode(String value) {
         if (!Pairing.setCode(this, value)) {
-            Toast.makeText(this, "영문과 숫자로 " + Pairing.MIN_LENGTH + "자 이상 넣어 주세요", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.code_too_short, Pairing.MIN_LENGTH), Toast.LENGTH_SHORT).show();
             return;
         }
         code.setText(Pairing.code(this));
-        Toast.makeText(this, "저장했어요. 다른 기기에도 같은 코드를 넣어 주세요", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.code_saved, Toast.LENGTH_SHORT).show();
     }
 
     private void update() {
@@ -246,19 +246,17 @@ public final class MainActivity extends Activity {
         tabletCard.setVisibility(phone ? View.GONE : View.VISIBLE);
         phoneCard.setVisibility(phone ? View.VISIBLE : View.GONE);
         newCode.setVisibility(phone ? View.VISIBLE : View.GONE);
-        helperNote.setText(phone
-                ? "폰에서는 핫스팟을 켜기 위해 꼭 필요합니다. 일반 앱은 핫스팟을 켤 수 없어서, ADB 권한을 빌려 씁니다."
-                : "태블릿에서는 \"폰 핫스팟 우선 연결\"을 쓸 때만 필요합니다.");
+        helperNote.setText(phone ? R.string.helper_note_phone : R.string.helper_note_tablet);
         log.setText(Status.log(this));
-        helperStatus.setText("확인 중...");
+        helperStatus.setText(R.string.checking);
         if (phone) {
-            phoneStatus.setText("블루투스 감시: " + Status.scan(this) + "\n배터리 최적화: "
-                    + (unrestricted() ? "제외됨" : "적용 중. 화면이 꺼져 있으면 핫스팟을 못 켤 수 있어요. 아래 버튼으로 제외해 주세요"));
+            phoneStatus.setText(getString(R.string.phone_status, Status.scan(this),
+                    getString(unrestricted() ? R.string.battery_exempt : R.string.battery_restricted)));
         }
         new Thread(() -> {
-            String adb = "pong".equals(Helper.adb("ping")) ? "실행 중" : "꺼져 있음";
-            String shizuku = Helper.shizukuState();
-            String text = "ADB 도우미: " + adb + "\nShizuku: " + shizuku;
+            String adb = getString("pong".equals(Helper.adb("ping")) ? R.string.adb_running : R.string.adb_stopped);
+            String shizuku = Helper.shizukuState(this);
+            String text = getString(R.string.helper_status, adb, shizuku);
             runOnUiThread(() -> helperStatus.setText(text));
         }).start();
     }
@@ -266,7 +264,8 @@ public final class MainActivity extends Activity {
     private void direct(boolean on) {
         new Thread(() -> {
             String reply = Helper.tether(this, on);
-            Status.log(this, "직접 " + (on ? "켜기" : "끄기") + ": " + reply);
+            Status.log(this, getString(R.string.log_direct,
+                    getString(on ? R.string.action_on : R.string.action_off), reply));
             runOnUiThread(this::update);
         }).start();
     }
@@ -274,14 +273,14 @@ public final class MainActivity extends Activity {
     private void requestShizuku() {
         try {
             if (!Shizuku.pingBinder()) {
-                Toast.makeText(this, "Shizuku가 실행 중이 아니에요", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.shizuku_not_running_toast, Toast.LENGTH_SHORT).show();
             } else if (Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "이미 권한이 있어요", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.already_granted, Toast.LENGTH_SHORT).show();
             } else {
                 Shizuku.requestPermission(1);
             }
         } catch (Exception e) {
-            Toast.makeText(this, "Shizuku 오류: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.shizuku_error_toast, e.getMessage()), Toast.LENGTH_SHORT).show();
         }
     }
 
