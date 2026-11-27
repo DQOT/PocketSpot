@@ -11,8 +11,12 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- Doze would otherwise cut the 127.0.0.1 link to the helper while the phone sleeps -->
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
-    <!-- Only for 127.0.0.1: the app reaches the ADB helper over a loopback port -->
+    <!-- The app reaches the ADB helper over a 127.0.0.1 port. The update check (on by default)
+         asks api.github.com once a day for the latest release; nothing else goes out. -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- Update notice (Android 13+) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <!-- From the Shizuku provider library -->
     <uses-permission android:name="moe.shizuku.manager.permission.API_V23" />
 
@@ -50,6 +54,11 @@
 
         <service
             android:name=".RescanJob"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <service
+            android:name=".UpdateCheck"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 

@@ -170,6 +170,20 @@ public final class MainActivity extends Activity {
         password.addTextChangedListener(watcher);
         tabletCard.addView(text(getString(R.string.saved_instantly), 12));
 
+        // Updates
+        LinearLayout updateCard = card(root, getString(R.string.section_updates));
+        updateCard.addView(text(getString(R.string.update_check_help), 13));
+        Switch updates = new Switch(this);
+        updates.setText(R.string.update_check);
+        updates.setChecked(UpdateCheck.enabled(this));
+        updates.setOnCheckedChangeListener((v, on) -> {
+            UpdateCheck.setEnabled(this, on);
+            if (on && !notificationsAllowed()) {
+                requestPermissions(new String[] {Manifest.permission.POST_NOTIFICATIONS}, 2);
+            }
+        });
+        updateCard.addView(updates);
+
         // Log
         LinearLayout logCard = card(root, getString(R.string.log_title));
         log = text("", 12);
@@ -181,6 +195,7 @@ public final class MainActivity extends Activity {
         scroll.addView(root);
         setContentView(scroll);
         Shizuku.addRequestPermissionResultListener(shizukuResult);
+        UpdateCheck.schedule(this);
         requestMissingPermissions();
     }
 
@@ -284,13 +299,23 @@ public final class MainActivity extends Activity {
         }
     }
 
+    /** Bluetooth permissions, plus (once) the notification permission for the update notice. */
     private void requestMissingPermissions() {
+        java.util.List<String> missing = new java.util.ArrayList<>();
         for (String p : PERMISSIONS) {
-            if (checkSelfPermission(p) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(PERMISSIONS, 1);
-                return;
-            }
+            if (checkSelfPermission(p) != PackageManager.PERMISSION_GRANTED) missing.add(p);
         }
+        android.content.SharedPreferences state = getSharedPreferences(UpdateCheck.STATE, MODE_PRIVATE);
+        if (UpdateCheck.enabled(this) && !notificationsAllowed() && !state.getBoolean("askedNotify", false)) {
+            state.edit().putBoolean("askedNotify", true).apply();
+            missing.add(Manifest.permission.POST_NOTIFICATIONS);
+        }
+        if (!missing.isEmpty()) requestPermissions(missing.toArray(new String[0]), 1);
+    }
+
+    private boolean notificationsAllowed() {
+        return android.os.Build.VERSION.SDK_INT < 33
+                || checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED;
     }
 
     @Override

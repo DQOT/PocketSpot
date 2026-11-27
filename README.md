@@ -104,7 +104,7 @@ No noticeable battery drain.
 - Each signal carries a timestamp and a one-time number, so recording it and replaying it later does nothing
 - The ADB helper listens on 127.0.0.1 only and handles only correctly signed requests. It reads the key from the app's `KeyProvider`, which answers the shell user only
 - The longer and more random the pairing code, the safer. The app's **New code** (16 characters) is recommended. With an easy code such as `1111-1111`, someone nearby could turn your hotspot on and off (they still cannot join without the hotspot password)
-- The internet permission is used only to talk to the helper on 127.0.0.1. Nothing is sent anywhere else
+- The internet permission is used for two things: talking to the helper on 127.0.0.1, and the update check (on by default, can be turned off in the app), which asks api.github.com once a day for the latest release. Nothing about the device, the pairing code or the hotspot is sent
 - The hotspot password saved on the tablet stays in the app's internal storage and is passed only to the helper's `cmd wifi connect-network`
 
 ## Known limitations

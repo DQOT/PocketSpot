@@ -87,4 +87,10 @@
     <string name="shizuku_not_running_toast">Shizuku가 실행 중이 아니에요</string>
     <string name="already_granted">이미 권한이 있어요</string>
     <string name="shizuku_error_toast">Shizuku 오류: %1$s</string>
+    <string name="section_updates">업데이트</string>
+    <string name="update_check">업데이트 확인</string>
+    <string name="update_check_help">하루 한 번 GitHub에서 최신 릴리스를 확인하고, 새 버전이 있으면 알려 줍니다. 127.0.0.1의 도우미 통신을 빼면 앱의 유일한 인터넷 사용이며, 그 밖에는 아무것도 보내지 않습니다.</string>
+    <string name="update_channel">업데이트</string>
+    <string name="update_title">PocketSpot %1$s 업데이트</string>
+    <string name="update_text">눌러서 릴리스 페이지를 엽니다.</string>
 </resources>

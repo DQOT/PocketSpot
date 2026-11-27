@@ -94,4 +94,10 @@
     <string name="shizuku_not_running_toast">Shizuku isn\'t running</string>
     <string name="already_granted">Already granted</string>
     <string name="shizuku_error_toast">Shizuku error: %1$s</string>
+    <string name="section_updates">Updates</string>
+    <string name="update_check">Check for updates</string>
+    <string name="update_check_help">Once a day, asks GitHub for the latest release and notifies you when there is a new version. Apart from the helper on 127.0.0.1, this is the app\'s only network access; nothing else is sent.</string>
+    <string name="update_channel">Updates</string>
+    <string name="update_title">PocketSpot %1$s is available</string>
+    <string name="update_text">Tap to open the release page.</string>
 </resources>
